@@ -452,3 +452,5 @@ TSWLatexianTemp*
 
 # standalone packages
 *.sta
+
+SeminarLaTeX/build/

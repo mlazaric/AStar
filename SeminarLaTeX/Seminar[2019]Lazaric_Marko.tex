@@ -1,6 +1,21 @@
 \documentclass[times, utf8, seminar, numeric]{fer}
 \usepackage{booktabs}
  \usepackage{url}
+ \usepackage{tikz}
+ \usepackage{todonotes}
+ \usepackage{minted}
+ 
+ 
+ \usetikzlibrary{matrix}
+ \usetikzlibrary{external}
+ \tikzexternalize[prefix=build/]
+ 
+ \setminted{fontsize=\small,baselinestretch=1,linenos,frame=lines}
+ 
+ \renewcommand{\listingscaption}{Programski isječak}
+ \renewcommand*{\thelisting}{\thechapter.\arabic{listing}}
+ 
+ 
 
 \begin{document}
 
@@ -18,15 +33,22 @@
 \tableofcontents
 
 \chapter{Uvod}
-Uvod.
+\input{chapters/01_uvod.tex}
 
 \chapter{Naivni algoritmi}
-Rad.
+\input{chapters/02_naivni_algoritmi.tex}
+
+\section{Pretraga u širinu}
+\input{chapters/02a_bfs.tex}
+
+\section{Dijkstrin algoritam}
 
 \chapter{Informirani algoritmi}
+\section{Pohlepna pretraga korištenjem prvog najboljeg čvora}
+\todo[inline]{engl. Greedy Best-First-Search}
+\section{Algoritam A*}
 
-\chapter{Primjena A* algoritma za pronalazak najkraćeg puta u cjelobrojnoj rešetci}
-
+\chapter{Primjena algoritma A* za pronalazak najkraćeg puta u cjelobrojnoj rešetci}
 
 \chapter{Zaključak}
 Zaključak.
