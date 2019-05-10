@@ -1,0 +1,16 @@
+Opisani problem definiran je s pet komponenti \cite{russelNorvig2003:aima}:
+
+\begin{enumerate}
+	\item Početno stanje \engl{initial state} 
+	\item Moguće akcije \engl{actions} -- opis mogućih akcija u nekom stanju.
+	\item Model prijelaza \engl{transition model} opis što svaka akcija znači. 
+	\item Provjera riješenosti \engl{goal test} -- provjera je li neko stanje rješenje.
+	\item Funkcija troška prijelaza između stanja \engl{step cost}
+\end{enumerate}
+
+Za problem cjelobrojne rešetke, početno stanje je stanje sa slovom "A".
+Moguće akcije su: gore, dolje, lijevo i desno.
+Model prijelaza je intuitivan: gore povećava y koordinatu za jedan, dolje ju smanjuje, a lijevo i desno povećavaju, odnosno smanjuju x koordinatu.
+Provjera riješenosti provjerava sadrži li stanje slovo "B".
+Trošak neposrednog prijelaza između stanja je uvijek jednak 1.
+Definicija tog problema implementirana je razredom \texttt{RectangularGrid}.

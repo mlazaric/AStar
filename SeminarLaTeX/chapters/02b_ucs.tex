@@ -1,0 +1,4 @@
+Pretraživanje s jednolikom cijenom \engl{uniform-cost search} je jednostavan algoritam za pronalazak najkraćeg puta u grafu s pozitivnim težinama bridova.
+Algoritam je potpun i optimalan, a njegova vremenska i memorijska složenost je \( O \left (b^{1 + \lfloor {C^*}/{\epsilon} \rfloor} \right ) \) gdje \( C^* \) predstavlja cijenu optimalnog rješenja, a \( \epsilon \) minimalnu težinu svih bridova.
+
+Za pohranu vrhova koristi prioritetni red \engl{priority queue}, te hash tablicu radi efikasne provjere je li pronašao bolji put do nekog vrha koji se već nalazi u prioritetnom redu. Implementiran je funkcijom \texttt{ucs} u razredu \texttt{SearchAlgorithms}.

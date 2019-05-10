@@ -1,29 +1,19 @@
-Pretraga u širinu \engl{breadth-first search} je jednostavan algoritam za pronalazak najkraćeg puta u grafu s uniformnim težinama bridova. Za pohranu vrhova koje treba obraditi koristi red \engl{queue}, dok za pohranu već obrađenih vrhova koristi skup \engl{set}. U svakom koraku, širi se u svim mogućim smjerovima, što dovodi do neefikasnosti samog algoritma.
-\todo[inline]{Spomenuti da je BFS dobar generalni algoritam, ali da je zato vremenski i memorijski zahtjevan.}
+Pretraživanje u širinu \engl{breadth-first search} je jednostavan algoritam za pronalazak najkraćeg puta u grafu s uniformnim težinama bridova.
+Algoritam je potpun i optimalan, a njegova vremenska i memorijska složenost je \( O(b^d) \).
 
-Na slici \ref{inefficient_bfs} je vidljiva ta neefikasnost.
+Za pohranu vrhova koje treba obraditi koristi red \engl{queue}, dok za pohranu već obrađenih vrhova koristi skup \engl{set}.
+U svakom koraku širi se u svim mogućim smjerovima, što dovodi do velike memorijske i vremenske složenosti.
+Implementiran je funkcijom \texttt{bfs} u razredu \texttt{SearchAlgorithms}.
+
+Na slici \ref{inefficient_bfs} je prikazano izvođenje algoritma.
 Crvenom bojom su označena polja koje je algoritam obradio, ali nisu dovela do najkraćeg puta, dok je zelenom označen najkraći put.
 Brojevi u poljima označavaju udaljenost od početnog polja.
-Pretraga u širinu je obradila \( 44 \) polja, dok bi optimalni algoritam obradio samo \( 8 \). 
-
-\todo[inline]{Spomenuti vremensku i memorijsku složenost.}
+Pretraga u širinu je obradila \( 44 \) polja, dok bi optimalno rješenje obradilo samo \( 8 \). 
 
 \begin{figure}[h]
 	\centering
 	\input{figures/inefficient_bfs.tex}
-	\caption{Usporedba pretrage u širinu i optimalnog algoritma.} 
+	\caption{Usporedba pretraživanja u širinu i optimalnog rješenja.} 
 	\label{inefficient_bfs}
 \end{figure}
-
-\begin{listing}[H]
-	\inputminted{python}{code_listings/pretraga_u_sirinu.py}
-	\caption{Pretraga u širinu implementirana u Pythonu.}
-	\label{pretraga_u_sirinu}
-\end{listing}
-
-\begin{listing}[H]
-	\inputminted{python}{code_listings/procitaj_put.py}
-	\caption{Pomoćna funkcija za čitanje najkraćeg puta.}
-	\label{procitaj_put}
-\end{listing}
 
