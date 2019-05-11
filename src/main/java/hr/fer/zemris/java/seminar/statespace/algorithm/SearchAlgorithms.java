@@ -76,12 +76,14 @@ public class SearchAlgorithms {
 
                     frontier.add(node);
                     observer.markFound(node);
+
+                    continue;
                 }
 
                 Node<S> oldPath = frontierSet.get(transition.getState());
                 Node<S> newPath = new Node<>(transition.getState(), current, current.getCost() + transition.getCost());
 
-                if (oldPath != null && heuristicComparator.compare(oldPath, newPath) > 0) {
+                if (oldPath != null && oldPath.getCost() > newPath.getCost()) {
                     frontier.removeIf(n -> n.getState().equals(transition.getState()));
                     frontier.add(newPath);
                     frontierSet.put(newPath.getState(), newPath);

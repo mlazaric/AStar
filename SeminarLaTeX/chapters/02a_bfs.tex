@@ -5,7 +5,26 @@ Za pohranu vrhova koje treba obraditi koristi red \engl{queue}, dok za pohranu v
 U svakom koraku širi se u svim mogućim smjerovima, što dovodi do velike memorijske i vremenske složenosti.
 Implementiran je metodom \texttt{bfs} u razredu \texttt{SearchAlgorithms}.
 
-\todo[inline]{Pseudokod}
+\begin{algorithm}[h]
+	fronta $\gets$ FIFO red vrhova s jednim elementom: (pocetnoStanje, null, 0)\;
+	pronadeni $\gets$ skup s jednim elementom: pocetnoStanje\;
+	\While{fronta nije prazna}{
+		trenutni $\gets$ prvi element iz fronte\;
+		\eIf{trenutni.stanje je rjesenje}{
+			vrati trenutni\;
+		}{
+			prijelazi $\gets$ prijelazi iz trenutni.stanje\;
+			\ForEach{prijelaz iz prijelazi}{
+				\If{prijelaz.stanje nije u pronadeni}{
+					dodaj prijelaz.stanje u pronadeni\;
+					dodaj (prijelaz.stanje, trenutni, trenutni.cijena + prijelaz.cijena) u frontu\;
+				}
+			}
+		}
+	}
+	vrati null\;
+	\caption{Pseudokod pretraživanja u širinu.}
+\end{algorithm}
 
 Na slici \ref{inefficient_bfs} je prikazano izvođenje algoritma.
 Crvenom bojom su označena polja koje je algoritam obradio, ali nisu dovela do najkraćeg puta, dok je zelenom označen najkraći put.
