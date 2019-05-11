@@ -1,0 +1,17 @@
+Algoritam A* je ekvivalentan pretraživanju s jednolikom cijenom, osim što za evaluacijsku funkciju koristi sumu cijene puta od početka do tog vrha i heurističke funkcije \( f(n) = g(n) + h(n) \). 
+Uz određene uvjete na heurističku funkciju, algoritam je potpun i optimalan. \cite{russelNorvig2003:aima}
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{scope}
+			\input{figures/astar_line.tex}
+		\end{scope}
+		
+		\begin{scope}[xshift = 7.5cm]
+			\input{figures/astar_obstacle.tex}
+		\end{scope}
+	\end{tikzpicture}
+	\caption{Rezultat algoritma A*.} 
+	\label{astar}
+\end{figure}

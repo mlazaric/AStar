@@ -1,6 +1,7 @@
 package hr.fer.zemris.java.astar.gui;
 
 import hr.fer.zemris.java.seminar.statespace.algorithm.AlgorithmObserver;
+import hr.fer.zemris.java.seminar.statespace.algorithm.Node;
 import hr.fer.zemris.java.seminar.statespace.grid.Coordinate;
 
 import javax.swing.*;
@@ -38,22 +39,24 @@ public class MapPanel extends JPanel implements AlgorithmObserver<Coordinate> {
     }
 
     @Override
-    public void markFound(Coordinate state) {
-        SwingUtilities.invokeLater(() -> {
+    public void markFound(Node<Coordinate> node) {
+        /*SwingUtilities.invokeLater(() -> {
+            Coordinate state = node.getState();
             CellPane cell = cells[state.getY()][state.getX()];
 
-            cell.setBackground(Color.LIGHT_GRAY);
-            cell.character.setText("o");
-        });
+            cell.setBackground(Color.LIGHT_GRAY.brighter());
+            cell.character.setText("" + (int) node.getCost());
+        });*/
     }
 
     @Override
-    public void markVisited(Coordinate state) {
+    public void markVisited(Node<Coordinate> node) {
         SwingUtilities.invokeLater(() -> {
+            Coordinate state = node.getState();
             CellPane cell = cells[state.getY()][state.getX()];
 
             cell.setBackground(Color.LIGHT_GRAY);
-            cell.character.setText("x");
+            cell.character.setText("" + (int) node.getCost());
         });
     }
 

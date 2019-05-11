@@ -1,0 +1,17 @@
+\begin{scope}[xshift=0.25cm, yshift=-0.25cm]
+	\fill[fill = green!10] (-2, -0.5) rectangle (2, 0);
+	
+	\draw[step=0.5cm,black,very thin] (-2,-2) grid (2,2);
+\end{scope}
+
+\matrix[matrix, matrix of nodes, nodes={anchor=center,inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}, nodes in empty cells]{
+	  & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+	0 &   &   &   &   &   &   &   &   \\
+	1 &   &   &   &   &   &   &   &   \\
+	2 &   &   &   &   &   &   &   &   \\
+	3 &   &   &   &   &   &   &   &   \\
+	4 & A & 1 & 2 & 3 & 4 & 5 & 6 & B \\
+	5 &   &   &   &   &   &   &   &   \\
+	6 &   &   &   &   &   &   &   &   \\
+	7 &   &   &   &   &   &   &   &   \\
+};

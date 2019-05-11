@@ -43,7 +43,9 @@ public class Main implements AlgorithmObserver<Coordinate> {
     }
 
     @Override
-    public void markFound(Coordinate state) {
+    public void markFound(Node<Coordinate> node) {
+        Coordinate state = node.getState();
+
         if (grid[state.getY()][state.getX()] != '*')
             grid[state.getY()][state.getX()] = 'o';
         //Stream.of(grid).map(Arrays::toString).forEach(System.out::println);
@@ -51,7 +53,9 @@ public class Main implements AlgorithmObserver<Coordinate> {
     }
 
     @Override
-    public void markVisited(Coordinate state) {
+    public void markVisited(Node<Coordinate> node) {
+        Coordinate state = node.getState();
+
         grid[state.getY()][state.getX()] = '*';
         //Stream.of(grid).map(Arrays::toString).forEach(System.out::println);
         //System.out.println();

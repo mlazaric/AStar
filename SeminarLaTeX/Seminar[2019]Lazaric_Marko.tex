@@ -7,8 +7,8 @@
  
  
  \usetikzlibrary{matrix}
- \usetikzlibrary{external}
- \tikzexternalize[prefix=build/]
+ %\usetikzlibrary{external}
+ %\tikzexternalize[prefix=build/]
  
  \setminted{fontsize=\small,baselinestretch=1,linenos,frame=lines}
  
@@ -49,9 +49,11 @@
 \input{chapters/02b_ucs.tex}
 
 \chapter{Informirani algoritmi}
-\section{Pohlepno pretraživanje korištenjem prvog najboljeg čvora}
-\todo[inline]{engl. Greedy Best-First-Search}
+\input{chapters/03_informirani.tex}
+\section{Pretraživanje "najbolji prvi"}
+\input{chapters/03a_greedy_bfs.tex}
 \section{Algoritam A*}
+\input{chapters/03b_astar.tex}
 
 \chapter{Primjena algoritma A* za pronalazak najkraćeg puta u cjelobrojnoj rešetci}
 

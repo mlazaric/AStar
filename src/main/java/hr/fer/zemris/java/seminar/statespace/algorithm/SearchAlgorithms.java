@@ -16,12 +16,12 @@ public class SearchAlgorithms {
 
         frontier.add(new Node<S>(initialState.get(), null, 0));
         visited.add(initialState.get());
-        observer.markFound(initialState.get());
+        observer.markFound(frontier.get(0));
 
         while (!frontier.isEmpty()) {
             Node<S> current = frontier.get(0);
             frontier.remove(0);
-            observer.markVisited(current.getState());
+            observer.markVisited(current);
 
             if (goalTest.test(current.getState())) {
                 return current;
@@ -34,7 +34,7 @@ public class SearchAlgorithms {
                     .forEach(trans -> {
                         visited.add(trans.getState());
                         frontier.add(new Node<>(trans.getState(), current, current.getCost() + trans.getCost()));
-                        observer.markFound(trans.getState());
+                        observer.markFound(frontier.get(frontier.size() - 1));
                     });
         }
 
@@ -57,11 +57,11 @@ public class SearchAlgorithms {
 
         frontier.add(new Node<S>(initialState.get(), null, 0));
         frontierSet.put(initialState.get(), frontier.peek());
-        observer.markFound(initialState.get());
+        observer.markFound(frontier.peek());
 
         while (!frontier.isEmpty()) {
             Node<S> current = frontier.poll();
-            observer.markVisited(current.getState());
+            observer.markVisited(current);
 
             if (goalTest.test(current.getState())) {
                 return current;
@@ -72,8 +72,10 @@ public class SearchAlgorithms {
 
             for (Transition<S> transition : transitions.apply(current.getState())) {
                 if (!frontierSet.containsKey(transition.getState()) && !visited.contains(transition.getState())) {
-                    frontier.add(new Node<>(transition.getState(), current, current.getCost() + transition.getCost()));
-                    observer.markFound(transition.getState());
+                    Node<S> node = new Node<>(transition.getState(), current, current.getCost() + transition.getCost());
+
+                    frontier.add(node);
+                    observer.markFound(node);
                 }
 
                 Node<S> oldPath = frontierSet.get(transition.getState());
@@ -83,11 +85,19 @@ public class SearchAlgorithms {
                     frontier.removeIf(n -> n.getState().equals(transition.getState()));
                     frontier.add(newPath);
                     frontierSet.put(newPath.getState(), newPath);
+                    observer.markFound(newPath);
                 }
             }
         }
 
         return null;
+    }
+
+    public static <S> Node<S> ucs(Supplier<S> initialState,
+                                  Function<S, List<Transition<S>>> transitions,
+                                  Predicate<S> goalTest,
+                                  AlgorithmObserver<S> observer) {
+        return prioritisedSearch(initialState, transitions, goalTest, Node::getCost, observer);
     }
 
 }

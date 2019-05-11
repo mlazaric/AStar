@@ -1,4 +1,30 @@
 Pretraživanje s jednolikom cijenom \engl{uniform-cost search} je jednostavan algoritam za pronalazak najkraćeg puta u grafu s pozitivnim težinama bridova.
-Algoritam je potpun i optimalan, a njegova vremenska i memorijska složenost je \( O \left (b^{1 + \lfloor {C^*}/{\epsilon} \rfloor} \right ) \) gdje \( C^* \) predstavlja cijenu optimalnog rješenja, a \( \epsilon \) minimalnu težinu svih bridova.
+Algoritam je potpun i optimalan, a njegova vremenska i memorijska složenost je \( O \left (b^{1 + \lfloor {C^*}/{\epsilon} \rfloor} \right ) \) gdje \( C^* \) predstavlja cijenu optimalnog rješenja, a \( \epsilon \) minimalnu težinu svih bridova. \cite{russelNorvig2003:aima}
 
-Za pohranu vrhova koristi prioritetni red \engl{priority queue}, te hash tablicu radi efikasne provjere je li pronašao bolji put do nekog vrha koji se već nalazi u prioritetnom redu. Implementiran je funkcijom \texttt{ucs} u razredu \texttt{SearchAlgorithms}.
+Za pohranu vrhova koristi prioritetni red \engl{priority queue}, te hash tablicu radi efikasne provjere je li pronašao bolji put do nekog vrha koji se već nalazi u prioritetnom redu.
+Implementiran je metodom \texttt{ucs} u razredu \texttt{SearchAlgorithms}.
+
+Prioritetni red koristi evaluacijsku funkciju \engl{evaluation function} za određivanje prioriteta, pri tome se manji broj smatra većim prioritetom. 
+Označava se s \( f(n) \).
+Konkretno za pretraživanje s jednolikom cijenom evaluacijska funkcija je jednaka cijenom puta od početnog vrha do tog vrha. 
+Oznaka za cijenu puta od početka do tog vrha je \( g(n) \), pa za pretraživanje s jednolikom cijenom vrijedi \( f(n) = g(n) \).
+
+\todo[inline]{Pseudokod}
+
+Za grafove s uniformnim težinama bridova, pretraživanje s jednolikom cijenom obradi strogo više vrhova od pretraživanja u širinu jer provjerava je li vrh rješenje pri obradi vrha.
+Posljedica toga je da algoritam obrađuje sve vrhove koji imaju istu cijenu, prije nego što obradi njihove sljedbenike.
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\begin{scope}
+			\input{figures/bfs.tex}
+		\end{scope}
+		
+		\begin{scope}[xshift = 7.5cm]
+			\input{figures/ucs.tex}
+		\end{scope}
+	\end{tikzpicture}
+	\caption{Usporedba pretraživanja u širinu i pretraživanja s jednolikom cijenom.} 
+	\label{inefficient_ucs}
+\end{figure}

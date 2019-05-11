@@ -17,13 +17,13 @@ public class AStarFrame extends JFrame {
 
     public AStarFrame() {
         char[][] charGrid = new char[][]{
-                {'.', '.', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '.', '.', '.'},
-                {'A', '.', '.', '.', '.', '.', '.', 'B'},
-                {'.', '.', '.', '.', '.', '.', '.', '.'},
-                {'.', '.', '.', '.', '.', '.', '.', '.'},
+                {'.', '.', '.', '.', '.', '.', '.', 'B'},
+                {'.', '#', '#', '#', '#', '#', '#', '.'},
+                {'.', '.', '.', '.', '.', '.', '#', '.'},
+                {'.', '.', '.', '.', '.', '.', '#', '.'},
+                {'A', '.', '.', '.', '.', '.', '#', '.'},
+                {'.', '.', '.', '.', '.', '.', '#', '.'},
+                {'.', '#', '#', '#', '#', '#', '#', '.'},
                 {'.', '.', '.', '.', '.', '.', '.', '.'},
         };
 
@@ -49,7 +49,7 @@ public class AStarFrame extends JFrame {
             new Thread (() -> {
                 RectangularGrid grid = new RectangularGrid(charGrid);
 
-                Node<Coordinate> goal = SearchAlgorithms.bfs(grid, grid, grid, mapPanel);
+                Node<Coordinate> goal = SearchAlgorithms.prioritisedSearch(grid, grid, grid, grid.DISTANCE_FROM_START, mapPanel);
 
                 for (; goal.getParent() != null; goal = goal.getParent()) {
                     mapPanel.setBackground(goal.getState(), Color.GREEN.darker());
