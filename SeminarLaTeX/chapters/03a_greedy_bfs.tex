@@ -1,4 +1,4 @@
-Pretraživanje "najbolji prvi" \engl{greedy best-first-search} je jednostavan pohlepan informiran algoritam koji nije optimalan, a potpun je jedino ako koristimo listu posjećenih stanja. \cite{russelNorvig2003:aima} \cite{umjetna}
+Pretraživanje "najbolji prvi" \engl{greedy best-first-search} je jednostavan pohlepan informiran algoritam koji nije optimalan, a potpun je jedino ako koristimo listu posjećenih stanja. Vremenska i prostorna složenost mu je \( O(b^m) \). \cite{russelNorvig2003:aima} \cite{umjetna}
 
 Algoritam je ekvivalentan pretraživanju s jednolikom cijenom, osim što za evaluacijsku funkciju koristi heurističku funkciju \( f(n) = h(n) \).
 To znači da će prvo evaluirati stanja koja su bliža rješenju, no taj lokalni optimum neće nužno dovesti do optimalnog rješenja, kao što je prikazano na slici \ref{greedy}.

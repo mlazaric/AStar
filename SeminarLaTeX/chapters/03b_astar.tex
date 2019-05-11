@@ -1,5 +1,8 @@
 Algoritam A* je ekvivalentan pretraživanju s jednolikom cijenom, osim što za evaluacijsku funkciju koristi sumu cijene puta od početka do tog vrha i heurističke funkcije \( f(n) = g(n) + h(n) \). 
-Uz određene uvjete na heurističku funkciju, algoritam je potpun i optimalan. \cite{russelNorvig2003:aima}
+A* je uvijek potpun, a optimalan je pod uvjetom da je heuristika \( h(n) \) optimistična.
+Vremenska i memorijska složenost mu je \( O \left (\textrm{min}(b^{d + 1}, b|S|) \right ) \). \cite{russelNorvig2003:aima} \cite{umjetna}
+
+Heuristika \( h(n) \) je optimistična ili dopustiva \engl{optimistic, admissible} ako i samo ako nikada ne precjenjuje, odnosno ako nikada nije veća od prave cijene do cilja. \cite{umjetna}
 
 \begin{figure}[h]
 	\centering
