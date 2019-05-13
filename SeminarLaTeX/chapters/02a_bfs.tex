@@ -1,7 +1,7 @@
-Pretraživanje u širinu \engl{breadth-first search} je jednostavan algoritam za pronalazak najkraćeg puta u grafu s uniformnim težinama bridova.
+Pretraživanje u širinu \engl{breadth-first search} je naivni algoritam za pronalazak najkraćeg puta u grafu s uniformnim težinama bridova.
 Algoritam je potpun i optimalan, a njegova vremenska i memorijska složenost je \( O(b^d) \). \cite{russelNorvig2003:aima}
 
-Za pohranu vrhova koje treba obraditi koristi red \engl{queue}, dok za pohranu već obrađenih vrhova koristi skup \engl{set}.
+Za pohranu vrhova koje treba obraditi koristi red \engl{queue}, dok za pohranu već pronađenih vrhova koristi skup \engl{set}.
 U svakom koraku širi se u svim mogućim smjerovima, što dovodi do velike memorijske i vremenske složenosti.
 Implementiran je metodom \texttt{bfs} u razredu \texttt{SearchAlgorithms}.
 

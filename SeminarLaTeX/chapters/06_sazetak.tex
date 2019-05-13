@@ -1,0 +1,14 @@
+Brojni problemi se mogu prikazati skupom stanja i prijelazima između njih, odnosno prostorom stanja. 
+Rješavanje problema se svodi na istraživanje prostora stanja, te pronalazak najkraćeg puta iz nekog početnog stanja, do stanja koje predstavlja rješenje.
+
+Postoje različiti algoritmi za istraživanje prostora stanja. 
+Naivni algoritmi istražuju prostor stanja naivno, bez dodatnih informacija o problemu, što dovodi do velike vremenske i memorijske složenosti.
+
+Informirani algoritmi koriste dodatne informacije kako bi smanjili prostor stanja koji trebaju istražiti.
+Te dodatne informacije se ugrađuju u heurističku funkciju koja predstavlja aproksimaciju najmanje cijene prijelaza od stanja \( n \) do stanja koje predstavlja rješenje.
+Prednost informiranih algoritama je manja vremenska i memorijska složenost zato što ne moraju istražiti cijeli prostor stanja.
+
+Algoritam A* je informirani algoritam za pretraživanje prostora stanja koji kombinira heurističku funkciju i trenutnu cijenu kako bi smanjio prostor stanja kojeg treba istražiti, ali svejedno našao optimalno rješenje.
+Postoje varijante algoritma A* koje nastoje smanjiti memorijsku složenost kao što su IDA* i SMA*.
+
+U ovom seminaru opisane su obje kategorije algoritama, i naivni i informirani, prikazane su njihove razlike, kako u implementaciji, tako i u memorijskoj i vremenskoj složenosti. Osim same analize algoritama, vizualizacijama je pobliže objašnjen način rada, kao i slučajevi u kojima opisani algoritmi ne daju dobre rezultate.

@@ -1,13 +1,13 @@
-Pretraživanje s jednolikom cijenom \engl{uniform-cost search} je jednostavan algoritam za pronalazak najkraćeg puta u grafu s pozitivnim težinama bridova.
+Pretraživanje s jednolikom cijenom \engl{uniform-cost search} je naivni algoritam za pronalazak najkraćeg puta u grafu s pozitivnim težinama bridova.
 Algoritam je potpun i optimalan, a njegova vremenska i memorijska složenost je \( O \left (b^{1 + \lfloor {C^*}/{\epsilon} \rfloor} \right ) \) gdje \( C^* \) predstavlja cijenu optimalnog rješenja, a \( \epsilon \) minimalnu težinu svih bridova. \cite{russelNorvig2003:aima}
 
 Za pohranu vrhova koristi prioritetni red \engl{priority queue}, te hash tablicu radi efikasne provjere je li pronašao bolji put do nekog vrha koji se već nalazi u prioritetnom redu.
 Implementiran je metodom \texttt{ucs} u razredu \texttt{SearchAlgorithms}.
 
-Prioritetni red koristi evaluacijsku funkciju \engl{evaluation function} za određivanje prioriteta, pri tome se manji broj smatra većim prioritetom. 
-Označava se s \( f(n) \).
-Konkretno za pretraživanje s jednolikom cijenom evaluacijska funkcija je jednaka cijenom puta od početnog vrha do tog vrha. 
-Oznaka za cijenu puta od početka do tog vrha je \( g(n) \), pa za pretraživanje s jednolikom cijenom vrijedi \( f(n) = g(n) \).
+Prioritetni red koristi evaluacijsku funkciju \engl{evaluation function} za određivanje prioriteta, pri čemu manji broj ima veći prioritet. 
+Evaluacijska funkcija se označava s \( f(n) \).
+Kod pretraživanja s jednolikom cijenom evaluacijska funkcija je jednaka cijeni puta od početnog stanja do stanja \( n \). 
+Oznaka za cijenu puta od početnog stanja do stanja \( n \) je \( g(n) \), pa za pretraživanje s jednolikom cijenom vrijedi \( f(n) = g(n) \).
 
 \begin{algorithm}[h]
 	fronta $\gets$ prioritetni red vrhova koristeci f(stanje) za odredivanje prioriteta s jednim elementom: (pocetnoStanje, null, 0)\;
@@ -39,8 +39,7 @@ Oznaka za cijenu puta od početka do tog vrha je \( g(n) \), pa za pretraživanj
 	\caption{Pseudokod pretraživanja s jednolikom cijenom.}
 \end{algorithm}
 
-Za grafove s uniformnim težinama bridova, pretraživanje s jednolikom cijenom obradi strogo više vrhova od pretraživanja u širinu jer provjerava je li vrh rješenje pri obradi vrha.
-Posljedica toga je da algoritam obrađuje sve vrhove koji imaju istu cijenu, prije nego što obradi njihove sljedbenike.
+Za grafove s uniformnim težinama bridova, pretraživanje s jednolikom cijenom obradi strogo više vrhova od pretraživanja u širinu jer provjerava sve vrhove na istoj dubini kao i rješenje kako bi provjerio postoji li bolji put do rješenja. 
 
 \begin{figure}[h]
 	\centering

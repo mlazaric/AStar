@@ -1,8 +1,7 @@
-Algoritam A* je ekvivalentan pretraživanju s jednolikom cijenom, osim što za evaluacijsku funkciju koristi sumu cijene puta od početka do tog vrha i heurističke funkcije \( f(n) = g(n) + h(n) \). 
-A* je uvijek potpun, a optimalan je pod uvjetom da je heuristika \( h(n) \) optimistična.
-Vremenska i memorijska složenost mu je \( O \left (\textrm{min}(b^{d + 1}, b|S|) \right ) \). \cite{russelNorvig2003:aima} \cite{umjetna}
+Algoritam A* je ekvivalentan pretraživanju s jednolikom cijenom, osim što za evaluacijsku funkciju koristi sumu cijene puta od početnog stanja do stanja \( n \) i heurističke funkcije \( f(n) = g(n) + h(n) \), odnosno aproksimaciju najboljeg puta kroz stanje \( n \). 
+A* je uvijek potpun, a optimalan je pod uvjetom da je heuristika \( h(n) \) konzistentna.
+Vremenska i memorijska složenost mu je \( O \left (\textrm{min}(b^{d + 1}, b|S|) \right ) \) gdje \( |S| \) predstavlja ukupan broj stanja. \cite{russelNorvig2003:aima} \cite{umjetna}
 
-Heuristika \( h(n) \) je optimistična ili dopustiva \engl{optimistic, admissible} ako i samo ako nikada ne precjenjuje, odnosno ako nikada nije veća od prave cijene do cilja. \cite{umjetna}
 
 \begin{figure}[h]
 	\centering
@@ -15,6 +14,18 @@ Heuristika \( h(n) \) je optimistična ili dopustiva \engl{optimistic, admissibl
 			\input{figures/astar_obstacle.tex}
 		\end{scope}
 	\end{tikzpicture}
-	\caption{Rezultat algoritma A*.} 
+	\caption{Rezultat izvođenja algoritma A*.} 
 	\label{astar}
 \end{figure}
+
+Takva evaluacijska funkcija kombinira prednosti pretraživanja s jednolikom cijenom i pretraživanja "najbolji prvi".
+Zbog heurističke funkcije algoritam preferira stanja koja se približavaju cilju, a zbog funkcije cijene algoritam je optimalan (uz konzistentnu heuristiku) jer preferira stanja koja imaju najjeftiniji put od početnog stanja do cilja kroz to stanje.
+
+Postoje brojne varijante algoritma A*.
+Algoritam A* s iterativnim povećanjem dubine \engl{iterative-deepening A*, IDA*} je ekvivalentan pretraživanju u dubinu s iterativnim povećavanjem dubine, no umjesto dubine, IDA* koristi evaluacijsku funkciju \( f(n) \). 
+Prednost algoritma IDA* je manja memorijska složenost, a posebno je praktičan za grafove s uniformnim težinama bridova. \cite{russelNorvig2003:aima}
+
+Pojednostavljeni algoritam A* s ograničenom memorijom \engl{simplified memory-bound A*, SMA*} se ponaša kao običan A* sve dok ne napuni ograničenu memoriju. 
+Kada ju napuni, algoritam izbacuje list s najvećom vrijednosti evaluacijske funkcije.
+Vrijednost izbačenog vrha se zapisuje u njegovog roditelja, kako bi znao je li potrebno ponovno obrađivati taj vrh. 
+SMA* je optimalan ako optimalno rješenje stane u ograničenu memoriju. \cite{russelNorvig2003:aima}

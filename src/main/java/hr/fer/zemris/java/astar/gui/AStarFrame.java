@@ -49,7 +49,7 @@ public class AStarFrame extends JFrame {
             new Thread (() -> {
                 RectangularGrid grid = new RectangularGrid(charGrid);
 
-                Node<Coordinate> goal = SearchAlgorithms.prioritisedSearch(grid, grid, grid, grid.DISTANCE_FROM_START, mapPanel);
+                Node<Coordinate> goal = SearchAlgorithms.prioritisedSearch(grid, grid, grid, grid.DISTANCE_THROUGH_COORDINATE, mapPanel);
 
                 for (; goal.getParent() != null; goal = goal.getParent()) {
                     mapPanel.setBackground(goal.getState(), Color.GREEN.darker());

@@ -1,0 +1,9 @@
+Heuristika \( h(n) \) je optimistična ili dopustiva ako i samo ako nikada ne precjenjuje cijenu puta od stanja \( n \) do cilja. Odnosno za svako stanje \( n \) vrijedi da je \( h(n) \) manje ili jednako od cijene optimalnog puta od stanja \( n \) do cilja. \cite{umjetna}
+
+Heuristika \( h(n) \) je konzistentna ili monotona ako i samo ako za svako stanje \( n \) i za svaki njegov sljedbenik \( n' \) vrijedi: \( h(n) \leq c(n, n') + h(n') \) gdje \( c(n, n') \) predstavlja trošak prijelaza iz stanja \( n \) u stanje \( n' \). \cite{russelNorvig2003:aima}
+
+Stanja u cjelobrojnoj rešetci označena su s dva cijela broja \( x \) i \( y \), pa se heuristička funkcija može zapisati kao \( h(x, y) \).
+Neka je početno stanje \( A(x_A, y_A) \), a završno stanje \( B(x_B, y_B) \).
+Onda se heuristička funkcija može definirati kao Manhattan udaljenost između trenutnog stanja i završnog, odnosno \( h(x, y) = |x - x_B| + |y - y_B| \).
+Takva heuristička funkcija predstavlja najmanji broj prijelaza potrebnih za prijelaz iz trenutnog stanja u završno stanje, pa je nužno optimistična, a također je konzistentna.
+
