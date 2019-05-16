@@ -1,0 +1,24 @@
+\begin{scope}[xshift=0.25cm, yshift=-0.25cm]
+	\draw[step=0.5cm,black,very thin] (-2,-2) grid (2,2);
+	
+	\newcommand\fillSquare[2]{\filldraw[fill=lightgray] (#1 / 2,#2 / 2) rectangle (#1 / 2 + 0.5,#2 / 2 + 0.5)}
+	
+	
+	\foreach \x in {-3,...,2}
+	{
+		\fillSquare{\x}{-3};
+		\fillSquare{\x}{2};
+		\fillSquare{2}{\x};
+	}
+\end{scope}
+
+\matrix[matrix, matrix of nodes, nodes={anchor=center,inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}, nodes in empty cells]{
+& 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+ 0 &   &   &   &   &   &   &   & B \\
+	1 &   &   &   &   &   &   &   &   \\
+	2 &   &   &   &   &   &   &   &   \\
+	3 &   &   &   &   &   &   &   &   \\
+	4 & A &   &   &   &   &   &   &   \\
+	5 &   &   &   &   &   &   &   &   \\
+	6 &   &   &   &   &   &   &   &   \\
+	7 &   &   &   &   &   &   &   &   \\};
