@@ -1,10 +1,5 @@
 package hr.fer.zemris.java.astar.gui;
 
-import hr.fer.zemris.java.seminar.statespace.algorithm.Node;
-import hr.fer.zemris.java.seminar.statespace.algorithm.SearchAlgorithms;
-import hr.fer.zemris.java.seminar.statespace.grid.Coordinate;
-import hr.fer.zemris.java.seminar.statespace.grid.RectangularGrid;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -14,6 +9,10 @@ public class AStarFrame extends JFrame {
     static final char GOAL_STATE = 'B';
     static final char SPACE = '.';
     static final char WALL = '#';
+
+    MapPanel mapPanel;
+    JScrollPane scrollPane;
+    char[][] grid;
 
     public AStarFrame() {
         char[][] charGrid = new char[][]{
@@ -27,48 +26,43 @@ public class AStarFrame extends JFrame {
                 {'.', '.', '.', '.', '.', '.', '.', '.'},
         };
 
-        MapPanel mapPanel = new MapPanel(charGrid);
+        replaceGrid(charGrid);
 
-        JScrollPane scrollPane = new JScrollPane(mapPanel);
+        JPanel optionsPanel = new JPanel();
+        optionsPanel.setLayout(new BoxLayout(optionsPanel, BoxLayout.Y_AXIS));
+
+        JPanel helper = new JPanel();
+        helper.add(optionsPanel);
+        add(helper, BorderLayout.EAST);
+
+        optionsPanel.add(new DimensionsPanel(this));
+        optionsPanel.add(new AlgorithmsPanel(this));
+        optionsPanel.add(new LoadSavePanel(this));
+    }
+
+    public void replaceGrid(char[][] charGrid) {
+        if (scrollPane != null) {
+            remove(scrollPane);
+        }
+
+        grid = charGrid;
+
+        mapPanel = new MapPanel(charGrid);
+
+        scrollPane = new JScrollPane(mapPanel);
 
         add(scrollPane, BorderLayout.CENTER);
 
-        JPanel optionsPanel = new JPanel();
-
-        add(optionsPanel, BorderLayout.EAST);
-
-        optionsPanel.add(new DimensionsPanel(this));
-
-        JButton test = new JButton("TEST");
-        JButton reset = new JButton("RESET");
-
-        optionsPanel.add(test);
-        optionsPanel.add(reset);
-
-        test.addActionListener(e -> {
-            new Thread (() -> {
-                RectangularGrid grid = new RectangularGrid(charGrid);
-
-                Node<Coordinate> goal = SearchAlgorithms.prioritisedSearch(grid, grid, grid, grid.DISTANCE_THROUGH_COORDINATE, mapPanel);
-
-                for (; goal.getParent() != null; goal = goal.getParent()) {
-                    mapPanel.setBackground(goal.getState(), Color.GREEN.darker());
-                }
-
-                mapPanel.setBackground(goal.getState(), Color.GREEN.darker());
-            }).start();
-        });
-
-        reset.addActionListener(e -> mapPanel.resetGrid());
+        revalidate();
+        pack();
     }
-
 
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             JFrame frame = new AStarFrame();
 
-            frame.setTitle("State space searching algorithms");
+            frame.setTitle("A Star");
             frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
             frame.pack();
             frame.setVisible(true);

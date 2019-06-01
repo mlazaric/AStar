@@ -77,6 +77,7 @@ public class MapPanel extends JPanel implements AlgorithmObserver<Coordinate> {
 
             add(character);
             setState(grid[y][x]);
+            setEnabled(true);
 
             setPreferredSize(new Dimension(20, 20));
             setBorder(BorderFactory.createLineBorder(Color.GRAY.brighter(), 1));

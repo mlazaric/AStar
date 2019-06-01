@@ -14,7 +14,9 @@
 
 \title{Pronalazak najkraćeg puta algoritmom A*}
 
-\date{\today}
+\date{\vspace{1em}Zagreb, 3. lipnja 2019.}
+
+\institute{Fakultet elektrotehnike i računarstva}
 
 \author{Marko Lazarić\\
 Voditelj: Doc. dr. sc. Marko Čupić}
@@ -38,82 +40,126 @@ Voditelj: Doc. dr. sc. Marko Čupić}
 \newcommand{\leftAction}{\actionName{Lijevo}}
 \newcommand{\rightAction}{\actionName{Desno}}
 
+%\setbeameroption{show notes}
+\setbeamertemplate{note page}[plain]
+
+
 \begin{document}
   \maketitle
   
-  \section{Definicija problema}
-  \begin{frame}{Početno stanje}	
-  	\twocolumns{
-	  \begin{figure}[H]
-	  		\begin{tikzpicture}
-	  		\input{figures/initial_state.tex}
-	  		\end{tikzpicture}
+  \begin{frame}{Prostor stanja - definicija}
+  	\begin{itemize}
+  		\item Graf u kojem vrhovi predstavljaju stanja u problemu, a bridovi prijelaze između stanja
+  		\item Rješavanje problema se svodi na pretraživanje grafa
+  	\end{itemize}
+  \end{frame}
+  
+  \begin{frame}{Prostor stanja - primjer}
+	  \begin{figure}[h]
+	  	\centering
+	  	\begin{tikzpicture}
+		  	\begin{scope}
+		  		\input{figures/rectangular_grid.tex}
+		  	\end{scope}
+		  	
+		  	\begin{scope}[xshift=6cm]
+		  		\input{figures/rectangular_graph.tex}
+		  	\end{scope}
+	  	\end{tikzpicture}
 	  \end{figure}
-    }{
-      \begin{itemize}
-    	\item \emph{Početno stanje} \engl{initial state} je stanje u kojem počinje pretraživanje
-      	\item U slučaju cjelobrojne rešetke, to je stanje koje sadrži "A"
-      \end{itemize}
-    }
+  
+    \note{Brojni problemi se mogu prikazati grafom u kojem vrhovi predstavljaju stanja, a bridovi prijelaze između tih stanja. Takav graf se naziva prostor stanja. Rješavanje problema se onda svodi na pretraživanje prostora stanja, odnosno pronalazak najkraćeg puta između dva vrha u prostoru stanja. Jednostavan primjer je cjelobrojna rešetka. Svako polje predstavlja jedno stanje, a prijelazi su mogući između svih prolaznih (bijelih) polja. Siva polja predstavljaju zidove. A je početno polje, B je cilj.}
   \end{frame}
 
-  \begin{frame}{Akcije}
-    \twocolumns{
-    	\begin{figure}[H]
-    		\begin{tikzpicture}
-    		\input{figures/actions.tex}
-    		\end{tikzpicture}
-    	\end{figure}
-    }{
-	    \begin{itemize}
-	    	\item \emph{Akcije} \engl{actions} je popis mogućih akcija iz trenutnog stanja
-	    	\item U slučaju cjelobrojne rešetke, moguće akcije su pomakni se gore, dolje, lijevo ili desno
-	    \end{itemize}
-    }
-  \end{frame}
-
-  \begin{frame}{Model prijelaza}
+  \begin{frame}{Algoritmi pretraživanja prostora stanja}
     \begin{itemize}
-    	\item \emph{Model prijelaza} \engl{transition model} opisuje moguće akcije i prijelaze između stanja
-    	\item U slučaju cjelobrojne rešetke, model prijelaza je:
-    	\\[1em]
-    	\begin{tabular}{lcl}
-    		\textsc{Rezultat}(\state{x}{y}, \upAction) &=& \state{x}{y - 1} \\
-    		\textsc{Rezultat}(\state{x}{y}, \downAction) &=& \state{x}{y + 1} \\
-    		\textsc{Rezultat}(\state{x}{y}, \leftAction) &=& \state{x - 1}{y} \\
-    		\textsc{Rezultat}(\state{x}{y}, \rightAction) &=& \state{x + 1}{y}
-    	\end{tabular}
-    	%\begin{itemize}
-    	%	\item \textsc{Rezultat}(Stanje(x, y), Gore) = Stanje(x, y - 1)
-    	%	\item \textsc{Rezultat}(Stanje(x, y), Dolje) = Stanje(x, y + 1)
-    	%	\item \textsc{Rezultat}(Stanje(x, y), Lijevo) = Stanje(x - 1, y)
-    	%	\item \textsc{Rezultat}(Stanje(x, y), Desno) = Stanje(x + 1, y)
-    	%\end{itemize}
+    	\item Naivni (neinformirani) algoritmi
+    	\begin{itemize}
+    		\item Pretraživanje u širinu 
+    		\item Pretraživanje u dubinu 
+    		\item Pretraživanje s jednolikom cijenom 
+    	\end{itemize}
+    	\item Informirani algoritmi
+    	\begin{itemize}
+    		\item Pretraživanje "prvi najbolji" 
+    		\item Algoritam A*
+    	\end{itemize}
     \end{itemize}
+
+	\note{Algoritmi pretraživanja prostora stanja se dijele u dvije kategorije: naivni i informirani. Naivni ili neinformirani algoritmi ne koriste dodatne informacije o problemu, nego pretražuju prostor stanja kao običan graf. Oni su generalniji jer ne ovise o problemu koji rješavaju, ali imaju veću vremensku i prostornu složenost jer pretražuju više stanja. Primjeri takvih algoritama su pretraživanje u širinu, pretraživanje u dubinu i pretraživanje s jednolikom cijenom.
+	
+Informirani algoritmi koriste dodatne informacije o problemu kako bi smanjili dio prostora stanja kojeg trebaju pretražiti. Imaju manju vremensku i prostornu složenost od naivnih jer pretražuju manje stanja, ali su specifični za pojedini problem u jednoj komponenti. Primjeri takvih algoritama su pretraživanje prvi najbolji i algoritam A*.}
   \end{frame}
 
-  \begin{frame}{Provjera rješenja}
-  	\twocolumns{
-    	\begin{figure}[H]
-  			\begin{tikzpicture}
-	  			\input{figures/goal_test.tex}
-  			\end{tikzpicture}
-  		\end{figure}
-  	}{
-	  	\begin{itemize}
-	  		\item \emph{Provjera rješenja} \engl{goal test} provjerava je li određeno stanje rješenje
-	  		\item U slučaju cjelobrojne rešetke, stanje je rješenje ako sadrži "B"
-	  	\end{itemize}
-    }
-  \end{frame}
-
-  \begin{frame}{Trošak prijelaza između stanja}
-	\begin{itemize}
-      \item \emph{Trošak prijelaza} \engl{step cost} je funkcija koja određuje trošak prijelaza iz stanja \( s \) u stanje \( s' \) akcijom \( a \)
-      \item Označava se \( c(s, a, s') \)
-	  \item U slučaju cjelobrojne rešetke, trošak prijelaza je \( 1 \) za svako susjedno polje (osim zidova)
-    \end{itemize}
-  \end{frame}
+%  \begin{frame}{Definicija problema}
+%    \begin{itemize}
+%    	\item Početno stanje
+%    	\item Akcije
+%    	\item Model prijelaza
+%    	\item Provjera rješenja
+%    	\item Trošak prijelaza između stanja
+%    \end{itemize}
+%
+%	\note{Takvi problemi se mogu definirati pomoću 5 komponenti: početno stanje, akcije, model prijelaza, provjera rješenja i trošak prijelaza između stanja. Objasnit ću te komponente na primjeru cjelobrojne rešetke.}
+%  \end{frame}
+%
+%  \begin{frame}{Početno stanje}	
+%	\begin{figure}[H]
+%  		\begin{tikzpicture}
+%  		\input{figures/initial_state.tex}
+%  		\end{tikzpicture}
+%	\end{figure}
+%
+%	\note{Početno stanje \engl{inital state} je stanje u kojem počinje pretraživanje. U slučaju cjelobrojne rešetke, to je stanje koje sadrži "A" obojano zelenom bojom.}
+%  \end{frame}
+%
+%  \begin{frame}{Akcije}
+%   	\begin{figure}[H]
+%   		\begin{tikzpicture}
+%   		\input{figures/actions.tex}
+%   		\end{tikzpicture}
+%   	\end{figure}
+%
+%    \note{Akcije \engl{actions} je popis mogućih akcija koje je moguće poduzeti iz trenutnog stanja. U slučaju cjelobrojne rešetke, moguće akcije su pomakni se gore, dolje, lijevo i desno kao što je prikazano na slici.}
+%  \end{frame}
+%
+%  \begin{frame}{Model prijelaza}
+%    \begin{itemize}
+%    	\item \emph{Model prijelaza} \engl{transition model} opisuje moguće akcije i prijelaze između stanja
+%    	\item U slučaju cjelobrojne rešetke, model prijelaza je:
+%    	\\[1em]
+%    	\begin{tabular}{lcl}
+%    		\textsc{Rezultat}(\state{x}{y}, \upAction) &=& \state{x}{y - 1} \\
+%    		\textsc{Rezultat}(\state{x}{y}, \downAction) &=& \state{x}{y + 1} \\
+%    		\textsc{Rezultat}(\state{x}{y}, \leftAction) &=& \state{x - 1}{y} \\
+%    		\textsc{Rezultat}(\state{x}{y}, \rightAction) &=& \state{x + 1}{y}
+%    	\end{tabular}
+%    	%\begin{itemize}
+%    	%	\item \textsc{Rezultat}(Stanje(x, y), Gore) = Stanje(x, y - 1)
+%    	%	\item \textsc{Rezultat}(Stanje(x, y), Dolje) = Stanje(x, y + 1)
+%    	%	\item \textsc{Rezultat}(Stanje(x, y), Lijevo) = Stanje(x - 1, y)
+%    	%	\item \textsc{Rezultat}(Stanje(x, y), Desno) = Stanje(x + 1, y)
+%    	%\end{itemize}
+%    \end{itemize}
+%  \end{frame}
+%
+%  \begin{frame}{Provjera rješenja}
+%   	\begin{figure}[H]
+%		\begin{tikzpicture}
+%			\input{figures/goal_test.tex}
+%		\end{tikzpicture}
+%	\end{figure}
+%
+%	\note{Provjera rješenja \engl{goal test} provjerava je li određeno stanje rješenje. Primijetimo da možemo imati više stanja koje predstavljaju rješenje, no ovdje ćemo se ograničiti na jedno. U slučaju cjelobrojne rešetko, rješenje je stanje koje sadrži "B" obojano zelenom bojom.}
+%  \end{frame}
+%
+%  \begin{frame}{Trošak prijelaza između stanja}
+%	\begin{itemize}
+%      \item \emph{Trošak prijelaza} \engl{step cost} je funkcija koja određuje trošak prijelaza iz stanja \( s \) u stanje \( s' \) akcijom \( a \)
+%      \item Označava se \( c(s, a, s') \)
+%	  \item U slučaju cjelobrojne rešetke, trošak prijelaza je \( 1 \) za svako susjedno polje (osim zidova)
+%    \end{itemize}
+%  \end{frame}
 
   \begin{frame}{Heuristička funkcija - definicija}
   	\begin{itemize}
@@ -121,6 +167,7 @@ Voditelj: Doc. dr. sc. Marko Čupić}
   	  \item Označava se \( h(n) \)
   	  \item Za svako stanje \( n \) koje predstavlja rješenje, mora vrijediti \( h(n) = 0 \)
   	\end{itemize}
+  	\note{Dodatne informacije o problemu ugrađujemo u heurističku funkciju. Heuristička funckija svakom stanju pridodaju numeričku vrijednost koja predstavlja minimalnu cijenu puta od tog stanja do cilja.}
   \end{frame}
 
   \begin{frame}{Heuristička funkcija - primjer}
@@ -138,5 +185,82 @@ Voditelj: Doc. dr. sc. Marko Čupić}
     	\[ h(\text{\state{0}{0}}) = 7 \]
     	\[ h(\text{\state{4}{0}}) = 11 \]
     }
+	\note{Primjer jednostavne heurističke funkcije za cjelobrojnu rešetku je Manhattan udaljenost između tog stanja i cilja. Primijetimo da je to ujedno i najmanji mogući broj poteza za prijelaz od tog stanja do cilja. Također primijetimo da takav put ne postoji nužno, npr. za stanje 4, 0.}
   \end{frame}
+
+  \begin{frame}{Optimističnost i konzistentnost}
+  	\begin{itemize}
+  		\item Heuristika \( h(n) \) je \emph{optimistična} ili \emph{dopustiva} ako i samo ako nikada ne precjenjuje, odnosno nikada nije veća od prave cijene do cilja \\[3em]
+  		\item Heuristika \( h(n) \) je \emph{konzistentna} ili \emph{monotona} ako i samo ako za svako stanje \( s \) i svaki njegov sljedbenik \( s' \) vrijedi \( h(s) \leq h(s') + c \) gdje je \( c \) trošak prijelaza iz stanja \( s \) u \( s' \)
+  	\end{itemize}
+  \end{frame}
+
+  \begin{frame}[fragile]{Općenit algoritam pretraživanja}
+  	\begin{itemize}
+  		\item Evaluacijska funkcija \( f(n) \) svakom stanju \( n \) pridodaje numeričku vrijednost koja predstavlja prioritet pri pretraživanju
+  		\item Manja vrijednost funkcije predstavlja veći prioritet
+  	\end{itemize}
+  
+  	\begin{verbatim}
+fronta = prioritetni red koristeći f(n)
+             za određivanje prioriteta
+ubaci u frontu početno stanje i cijenu 0
+
+dok fronta nije prazna
+  uzmi prvo stanje i cijenu iz fronte
+  obradi to stanje i cijenu
+kraj\end{verbatim}
+  \end{frame}
+
+  \begin{frame}{Pretraživanje s jednolikom cijenom}
+  	\centering
+  	\( f(n) = g(n) \)
+  	
+  	\begin{figure}[h]
+  		\centering
+  		\begin{tikzpicture}
+  		\begin{scope}
+  		\input{figures/ucs.tex}
+  		\end{scope}
+  		
+  		\begin{scope}[xshift = 5.5cm]
+  		\input{figures/optimal.tex}
+  		\end{scope}
+  		\end{tikzpicture}
+  	\end{figure}
+  \end{frame}
+
+  \begin{frame}{Pretraživanje "prvi najbolji"}
+  	\centering
+  	\( f(n) = h(n) \)
+  	
+  	\begin{tikzpicture}
+  	\begin{scope}
+  	\input{figures/greedy_line.tex}
+  	\end{scope}
+  	
+  	\begin{scope}[xshift = 5.5cm]
+  	\input{figures/greedy_obstacle.tex}
+  	\end{scope}
+  	\end{tikzpicture}
+  \end{frame}
+
+  \begin{frame}{Algoritam A*}
+  	\centering
+  	\( f(n) = g(n) + h(n) \)
+  	
+  	\begin{tikzpicture}
+  	\begin{scope}
+  	\input{figures/astar_line.tex}
+  	\end{scope}
+  	
+  	\begin{scope}[xshift = 5.5cm]
+  	\input{figures/astar_obstacle.tex}
+  	\end{scope}
+  	\end{tikzpicture}
+  \end{frame}
+
+  \section{Demonstracija programa}
+  
+  \section{Hvala na pažnji!}
 \end{document}

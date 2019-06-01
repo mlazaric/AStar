@@ -75,6 +75,7 @@ public class SearchAlgorithms {
                     Node<S> node = new Node<>(transition.getState(), current, current.getCost() + transition.getCost());
 
                     frontier.add(node);
+                    frontierSet.put(node.getState(), node);
                     observer.markFound(node);
 
                     continue;

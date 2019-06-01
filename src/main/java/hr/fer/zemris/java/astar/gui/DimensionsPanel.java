@@ -30,7 +30,20 @@ public class DimensionsPanel extends JPanel {
         setBorder(BorderFactory.createTitledBorder("Dimensions"));
 
         btnSetDimensions.addActionListener(event -> {
+            aStarFrame.replaceGrid(createCharArray((Integer) spinnerHeight.getValue(), (Integer) spinnerWidth.getValue()));
             //aStarFrame.setDimensions((Integer) spinnerHeight.getValue(), (Integer) spinnerWidth.getValue());
         });
+    }
+
+    private char[][] createCharArray(int height, int width) {
+        char[][] array = new char[height][width];
+
+        for (int row = 0; row < height; ++row) {
+            for (int col = 0; col < width; ++width) {
+                array[row][col] = AStarFrame.SPACE;
+            }
+        }
+
+        return array;
     }
 }
