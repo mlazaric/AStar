@@ -7,9 +7,14 @@
 \usepackage{wrapfig}
 \usepackage{float}
 \usepackage{amsmath}
+\usepackage{varwidth}
+\usepackage[font=scriptsize]{caption}
 
 \usetheme{metropolis}
 \usetikzlibrary{matrix}
+\usetikzlibrary{calc}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=build/]
 \setmainfont[Ligatures=TeX]{Fira Sans}
 
 \title{Pronalazak najkraćeg puta algoritmom A*}
@@ -33,6 +38,8 @@ Voditelj: Doc. dr. sc. Marko Čupić}
 	\end{columns}
 }
 \newcommand{\state}[2]{\textsc{Stanje}(\( #1 \), \( #2 \))}
+\newcommand{\visit}[2]{\fill[fill = red] (#1, #2) rectangle ++(1, 1);}
+\newcommand{\find}[2]{\fill[fill = green] (#1, #2) rectangle ++(1, 1);}
 
 \newcommand{\actionName}[1]{#1}
 \newcommand{\upAction}{\actionName{Gore}}
@@ -41,35 +48,155 @@ Voditelj: Doc. dr. sc. Marko Čupić}
 \newcommand{\rightAction}{\actionName{Desno}}
 
 %\setbeameroption{show notes}
-\setbeamertemplate{note page}[plain]
-
+%\setbeamertemplate{note page}[plain]
+\renewcommand{\figurename}{Slika}
 
 \begin{document}
-  \maketitle
-  
-  \begin{frame}{Prostor stanja - definicija}
-  	\begin{itemize}
-  		\item Graf u kojem vrhovi predstavljaju stanja u problemu, a bridovi prijelaze između stanja
-  		\item Rješavanje problema se svodi na pretraživanje grafa
-  	\end{itemize}
+  \begin{frame}[noframenumbering, plain]
+  	\centering
+  	\vspace{3em}
+  	Seminarski rad
+  	\vspace{-5em}
+  	
+  	\titlepage
+  \end{frame}
+
+	\begin{frame}{Motivacija - Razne slagalice}
+		\begin{figure}
+			\includegraphics[scale=0.5]{images/8puzzle.png}
+			\caption{Slika preuzeta s http://www.aiai.ed.ac.uk/\~{}gwickler/eightpuzzle-uninf.html}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Motivacija - Rubikova kocka}
+		\begin{figure}
+			\includegraphics[scale=0.4]{images/rubik_cube.png}
+			\caption{Slika preuzeta s http://pngimg.com/imgs/objects/rubik\_cube/}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}{Motivacija - Putovanje po Istri}
+		\begin{figure}
+			\includegraphics[scale=0.3]{images/istra.png}
+			\caption{Slika preuzeta s https://www.fer.unizg.hr/\_download/repository/UI-3-HeuristickoPretrazivanje.pdf}
+		\end{figure}
+	\end{frame}
+
+  \begin{frame}{Cjelobrojna rešetka}
+  	\begin{figure}[h]
+  		\centering
+  		\begin{tikzpicture}
+  			\input{figures/rectangular_grid.tex}
+  		\end{tikzpicture}
+  	\end{figure}
   \end{frame}
   
-  \begin{frame}{Prostor stanja - primjer}
+%  \begin{frame}{Prostor stanja - definicija}
+%  	\begin{itemize}
+%  		\item Graf u kojem vrhovi predstavljaju stanja u problemu, a bridovi prijelaze između stanja
+%  		\item Rješavanje problema se svodi na pretraživanje grafa
+%  	\end{itemize}
+%  \end{frame}
+  
+  \begin{frame}{Prostor stanja - stanja}
 	  \begin{figure}[h]
 	  	\centering
+	  	\tikzsetnextfilename{states}
 	  	\begin{tikzpicture}
 		  	\begin{scope}
 		  		\input{figures/rectangular_grid.tex}
 		  	\end{scope}
 		  	
 		  	\begin{scope}[xshift=6cm]
-		  		\input{figures/rectangular_graph.tex}
+		  		\input{figures/rectangular_states.tex}
 		  	\end{scope}
 	  	\end{tikzpicture}
 	  \end{figure}
   
     \note{Brojni problemi se mogu prikazati grafom u kojem vrhovi predstavljaju stanja, a bridovi prijelaze između tih stanja. Takav graf se naziva prostor stanja. Rješavanje problema se onda svodi na pretraživanje prostora stanja, odnosno pronalazak najkraćeg puta između dva vrha u prostoru stanja. Jednostavan primjer je cjelobrojna rešetka. Svako polje predstavlja jedno stanje, a prijelazi su mogući između svih prolaznih (bijelih) polja. Siva polja predstavljaju zidove. A je početno polje, B je cilj.}
   \end{frame}
+
+	\begin{frame}{Prostor stanja - prijelazi}
+		\begin{figure}[h]
+			\centering
+			\tikzsetnextfilename{space_state}
+			\begin{tikzpicture}
+			\begin{scope}
+			\input{figures/rectangular_grid.tex}
+			\end{scope}
+			
+			\begin{scope}[xshift=6cm]
+			\input{figures/rectangular_graph.tex}
+			\end{scope}
+			\end{tikzpicture}
+		\end{figure}
+	\end{frame}
+
+	\begin{frame}[fragile]{Općenit algoritam pretraživanja}
+		\begin{figure}
+			\centering
+			\begin{varwidth}{\linewidth}
+				\begin{verbatim}
+fronta = prioritetni red 
+ubaci u frontu početno stanje i cijenu 0
+
+dok fronta nije prazna
+    uzmi prvo stanje i cijenu iz fronte
+    obradi to stanje i cijenu
+kraj\end{verbatim}
+			\end{varwidth}
+		\end{figure}
+	\end{frame}
+
+	\newcommand{\algoritamFrame}[1]{
+		\begin{frame}{Općenit algoritam pretraživanja}
+			\centering
+			
+			\tikzsetnextfilename{algoritam#1}
+			\begin{tikzpicture}
+				\input{figures/basic#1.tex}
+			\end{tikzpicture}
+	\end{frame}}
+
+	\algoritamFrame{0}
+	\algoritamFrame{1}
+	\algoritamFrame{2}
+	\algoritamFrame{3}
+	\algoritamFrame{4}
+
+	\begin{frame}{Evaluacijska funkcija}
+		\begin{itemize}
+			\item Evaluacijska funkcija \( f(n) \) svakom stanju \( n \) pridodaje numeričku vrijednost koja predstavlja prioritet pri pretraživanju
+			\item Manja vrijednost funkcije predstavlja veći prioritet, odnosno manju "cijenu" 
+		\end{itemize}
+	\end{frame}
+
+	  \begin{frame}{Pomoćne funkcije}
+		\begin{itemize}
+			\item \emph{Cijena puta} (\( g(n) \)) predstavlja \textbf{izračunatu} cijenu puta od početnog stanja do stanja \( n \)\\[3em]
+			\item \emph{Heuristička funkcija} (\( h(n) \)) predstavlja \textbf{aproksimaciju} najmanje cijene puta od stanja \( n \) do cilja
+		\end{itemize}
+		\note{Dodatne informacije o problemu ugrađujemo u heurističku funkciju. Heuristička funckija svakom stanju pridodaju numeričku vrijednost koja predstavlja minimalnu cijenu puta od tog stanja do cilja.}
+	\end{frame}
+	
+	\begin{frame}{Heuristička funkcija - primjer}
+		\twocolumns{
+			\tikzsetnextfilename{heuristic}
+			\begin{figure}[H]
+				\begin{tikzpicture}
+				\input{figures/heuristic.tex}
+				\end{tikzpicture}
+			\end{figure}
+		}{
+			\begin{itemize}
+				\item Jednostavna heuristika za cjelobrojnu rešetku je Manhattan udaljenost između stanja \\[0.5cm]
+			\end{itemize}
+			\[ h(\text{\state{x}{y}}) = |x - x_B| + |y - y_B| \]
+			\[ h(\text{\state{0}{0}}) = 7 \]
+			\[ h(\text{\state{4}{0}}) = 11 \]
+		}
+		\note{Primjer jednostavne heurističke funkcije za cjelobrojnu rešetku je Manhattan udaljenost između tog stanja i cilja. Primijetimo da je to ujedno i najmanji mogući broj poteza za prijelaz od tog stanja do cilja. Također primijetimo da takav put ne postoji nužno, npr. za stanje 4, 0.}
+	\end{frame}
 
   \begin{frame}{Algoritmi pretraživanja prostora stanja}
     \begin{itemize}
@@ -161,106 +288,106 @@ Informirani algoritmi koriste dodatne informacije o problemu kako bi smanjili di
 %    \end{itemize}
 %  \end{frame}
 
-  \begin{frame}{Heuristička funkcija - definicija}
-  	\begin{itemize}
-  	  \item \emph{Heuristička funkcija} \engl{heuristic} predstavlja najmanju cijenu puta od stanja \( n \) do stanja koje predstavlja rješenje
-  	  \item Označava se \( h(n) \)
-  	  \item Za svako stanje \( n \) koje predstavlja rješenje, mora vrijediti \( h(n) = 0 \)
-  	\end{itemize}
-  	\note{Dodatne informacije o problemu ugrađujemo u heurističku funkciju. Heuristička funckija svakom stanju pridodaju numeričku vrijednost koja predstavlja minimalnu cijenu puta od tog stanja do cilja.}
-  \end{frame}
+%  \begin{frame}{Optimističnost i konzistentnost}
+%  	\begin{itemize}
+%  		\item Heuristika \( h(n) \) je \emph{optimistična} ili \emph{dopustiva} ako i samo ako nikada ne precjenjuje, odnosno nikada nije veća od prave cijene do cilja \\[3em]
+%  		\item Heuristika \( h(n) \) je \emph{konzistentna} ili \emph{monotona} ako i samo ako za svako stanje \( s \) i svaki njegov sljedbenik \( s' \) vrijedi \( h(s) \leq h(s') + c \) gdje je \( c \) trošak prijelaza iz stanja \( s \) u \( s' \)
+%  	\end{itemize}
+%  \end{frame}
 
-  \begin{frame}{Heuristička funkcija - primjer}
-    \twocolumns{
-    	\begin{figure}[H]
-    		\begin{tikzpicture}
-    		\input{figures/heuristic.tex}
-    		\end{tikzpicture}
-    	\end{figure}
-    }{
-    	\begin{itemize}
-    		\item Jednostavna heuristika za cjelobrojnu rešetku je Manhattan udaljenost između stanja \\[0.5cm]
-    	\end{itemize}
-    	\[ h(\text{\state{x}{y}}) = |x - x_B| + |y - y_B| \]
-    	\[ h(\text{\state{0}{0}}) = 7 \]
-    	\[ h(\text{\state{4}{0}}) = 11 \]
-    }
-	\note{Primjer jednostavne heurističke funkcije za cjelobrojnu rešetku je Manhattan udaljenost između tog stanja i cilja. Primijetimo da je to ujedno i najmanji mogući broj poteza za prijelaz od tog stanja do cilja. Također primijetimo da takav put ne postoji nužno, npr. za stanje 4, 0.}
-  \end{frame}
 
-  \begin{frame}{Optimističnost i konzistentnost}
-  	\begin{itemize}
-  		\item Heuristika \( h(n) \) je \emph{optimistična} ili \emph{dopustiva} ako i samo ako nikada ne precjenjuje, odnosno nikada nije veća od prave cijene do cilja \\[3em]
-  		\item Heuristika \( h(n) \) je \emph{konzistentna} ili \emph{monotona} ako i samo ako za svako stanje \( s \) i svaki njegov sljedbenik \( s' \) vrijedi \( h(s) \leq h(s') + c \) gdje je \( c \) trošak prijelaza iz stanja \( s \) u \( s' \)
-  	\end{itemize}
-  \end{frame}
+	
+	\newcommand{\ucsFrame}[1]{
+		\begin{frame}{Pretraživanje s jednolikom cijenom}
+			\centering
+			\( f(n) = g(n) \)
+			
+			\tikzsetnextfilename{ucs#1}
+			\begin{tikzpicture}
+				\input{figures/ucs#1.tex}
+			\end{tikzpicture}
+		\end{frame}}
+	
+	
+	
+	\ucsFrame{0}
+	\ucsFrame{1}
+	\ucsFrame{2}
+	\ucsFrame{3}
+	\ucsFrame{4}
+	\ucsFrame{5}
+	\ucsFrame{6}
+	\ucsFrame{7}
+	\ucsFrame{8}
+	\ucsFrame{9}
+	\ucsFrame{10}
+	\ucsFrame{11}
+	
+	\newcommand{\gbfsFrame}[1]{
+		\begin{frame}{Pretraživanje "prvi najbolji"}
+			\centering
+			\( f(n) = h(n) \)
+			
+			\tikzsetnextfilename{gbfs#1}
+			\begin{tikzpicture}
+				\input{figures/gbfs#1.tex}
+			\end{tikzpicture}
+		\end{frame}}
+	
+	\gbfsFrame{0}
+	\gbfsFrame{1}
+	\gbfsFrame{2}
+	\gbfsFrame{3}
+	\gbfsFrame{4}
+	\gbfsFrame{5}
+	\gbfsFrame{6}
+	\gbfsFrame{7}
+	\gbfsFrame{8}
+	\gbfsFrame{9}
+	\gbfsFrame{10}
+	\gbfsFrame{11}
+	\gbfsFrame{12}
+	\gbfsFrame{13}
+	\gbfsFrame{14}
+	\gbfsFrame{15}
+	
+	\newcommand{\astarFrame}[1]{
+		\begin{frame}{Algoritam A*}
+			\centering
+			\( f(n) = g(n) + h(n) \)
+			
+			\tikzsetnextfilename{astar#1}
+			\begin{tikzpicture}
+				\input{figures/astar#1.tex}
+			\end{tikzpicture}
+		\end{frame}}
+	
+	\astarFrame{0}
+	\astarFrame{1}
+	\astarFrame{2}
+	\astarFrame{3}
+	\astarFrame{4}
+	\astarFrame{5}
+	\astarFrame{6}
+	\astarFrame{7}
+	\astarFrame{8}
+	\astarFrame{9}
+	\astarFrame{10}
+	\astarFrame{11}
+	\astarFrame{12}
+	\astarFrame{13}
+	\astarFrame{14}
+	\astarFrame{15}
+	\astarFrame{16}
 
-  \begin{frame}[fragile]{Općenit algoritam pretraživanja}
-  	\begin{itemize}
-  		\item Evaluacijska funkcija \( f(n) \) svakom stanju \( n \) pridodaje numeričku vrijednost koja predstavlja prioritet pri pretraživanju
-  		\item Manja vrijednost funkcije predstavlja veći prioritet
-  	\end{itemize}
   
-  	\begin{verbatim}
-fronta = prioritetni red koristeći f(n)
-             za određivanje prioriteta
-ubaci u frontu početno stanje i cijenu 0
-
-dok fronta nije prazna
-  uzmi prvo stanje i cijenu iz fronte
-  obradi to stanje i cijenu
-kraj\end{verbatim}
-  \end{frame}
-
-  \begin{frame}{Pretraživanje s jednolikom cijenom}
-  	\centering
-  	\( f(n) = g(n) \)
-  	
-  	\begin{figure}[h]
-  		\centering
-  		\begin{tikzpicture}
-  		\begin{scope}
-  		\input{figures/ucs.tex}
-  		\end{scope}
-  		
-  		\begin{scope}[xshift = 5.5cm]
-  		\input{figures/optimal.tex}
-  		\end{scope}
-  		\end{tikzpicture}
-  	\end{figure}
-  \end{frame}
-
-  \begin{frame}{Pretraživanje "prvi najbolji"}
-  	\centering
-  	\( f(n) = h(n) \)
-  	
-  	\begin{tikzpicture}
-  	\begin{scope}
-  	\input{figures/greedy_line.tex}
-  	\end{scope}
-  	
-  	\begin{scope}[xshift = 5.5cm]
-  	\input{figures/greedy_obstacle.tex}
-  	\end{scope}
-  	\end{tikzpicture}
-  \end{frame}
-
-  \begin{frame}{Algoritam A*}
-  	\centering
-  	\( f(n) = g(n) + h(n) \)
-  	
-  	\begin{tikzpicture}
-  	\begin{scope}
-  	\input{figures/astar_line.tex}
-  	\end{scope}
-  	
-  	\begin{scope}[xshift = 5.5cm]
-  	\input{figures/astar_obstacle.tex}
-  	\end{scope}
-  	\end{tikzpicture}
-  \end{frame}
 
   \section{Demonstracija programa}
   
-  \section{Hvala na pažnji!}
+  \begin{frame}[plain]
+  	\section{Hvala na pažnji!}
+  	\usebeamerfont{frametitle}
+  	\hspace{15em}Pitanja?
+  \end{frame}
+  
 \end{document}

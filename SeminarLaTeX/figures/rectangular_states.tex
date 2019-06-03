@@ -1,0 +1,78 @@
+\matrix[matrix, matrix of nodes, nodes={anchor=center,inner sep=0pt,text width=.5cm,align=center,minimum height=.5cm}, nodes in empty cells]{
+   	& 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+   	0 &   &   &   &   &   &   &   &   \\
+   	1 &   &   &   &   &   &   &   &   \\
+   	2 &   &   &   &   &   &   &   &   \\
+   	3 &   &   &   &   &   &   &   &   \\
+   	4 &   &   &   &   &   &   &   &   \\
+   	5 &   &   &   &   &   &   &   &   \\
+   	6 &   &   &   &   &   &   &   &   \\
+   	7 &   &   &   &   &   &   &   &   \\};
+  	
+\newcommand\drawNode[4]{\node[circle,draw,inner sep=0pt,minimum size=0.4cm] at (#1 / 2 - 1.5, #2 / 2 - 2)   (#4) {#3};}
+\newcommand\drawWallNode[3]{\node[circle,draw,fill=lightgray,inner sep=0pt,minimum size=0.4cm] at (#1 / 2 - 1.5, #2 / 2 - 2)   (#3) {};}
+
+\drawNode{0}{0}{ }{0}
+\drawNode{1}{0}{ }{1}
+\drawNode{2}{0}{ }{2}
+\drawNode{3}{0}{ }{3}
+\drawNode{4}{0}{ }{4}
+\drawNode{5}{0}{ }{5}
+\drawNode{6}{0}{ }{6}
+\drawNode{7}{0}{ }{7}
+\drawNode{0}{1}{ }{8}
+\drawWallNode{1}{1}{9}
+\drawWallNode{2}{1}{10}
+\drawWallNode{3}{1}{11}
+\drawWallNode{4}{1}{12}
+\drawWallNode{5}{1}{13}
+\drawWallNode{6}{1}{14}
+\drawNode{7}{1}{ }{15}
+\drawNode{0}{2}{ }{16}
+\drawNode{1}{2}{ }{17}
+\drawNode{2}{2}{ }{18}
+\drawNode{3}{2}{ }{19}
+\drawNode{4}{2}{ }{20}
+\drawNode{5}{2}{ }{21}
+\drawWallNode{6}{2}{22}
+\drawNode{7}{2}{ }{23}
+\drawNode{0}{3}{A}{24}
+\drawNode{1}{3}{ }{25}
+\drawNode{2}{3}{ }{26}
+\drawNode{3}{3}{ }{27}
+\drawNode{4}{3}{ }{28}
+\drawNode{5}{3}{ }{29}
+\drawWallNode{6}{3}{30}
+\drawNode{7}{3}{ }{31}
+\drawNode{0}{4}{ }{32}
+\drawNode{1}{4}{ }{33}
+\drawNode{2}{4}{ }{34}
+\drawNode{3}{4}{ }{35}
+\drawNode{4}{4}{ }{36}
+\drawNode{5}{4}{ }{37}
+\drawWallNode{6}{4}{38}
+\drawNode{7}{4}{ }{39}
+\drawNode{0}{5}{ }{40}
+\drawNode{1}{5}{ }{41}
+\drawNode{2}{5}{ }{42}
+\drawNode{3}{5}{ }{43}
+\drawNode{4}{5}{ }{44}
+\drawNode{5}{5}{ }{45}
+\drawWallNode{6}{5}{46}
+\drawNode{7}{5}{ }{47}
+\drawNode{0}{6}{ }{48}
+\drawWallNode{1}{6}{49}
+\drawWallNode{2}{6}{50}
+\drawWallNode{3}{6}{51}
+\drawWallNode{4}{6}{52}
+\drawWallNode{5}{6}{53}
+\drawWallNode{6}{6}{54}
+\drawNode{7}{6}{ }{55}
+\drawNode{0}{7}{ }{56}
+\drawNode{1}{7}{ }{57}
+\drawNode{2}{7}{ }{58}
+\drawNode{3}{7}{ }{59}
+\drawNode{4}{7}{ }{60}
+\drawNode{5}{7}{ }{61}
+\drawNode{6}{7}{ }{62}
+\drawNode{7}{7}{B}{63}
